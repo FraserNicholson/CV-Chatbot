@@ -1,0 +1,1 @@
+Over several months, I worked closely with 3 junior engineers at Trainline, taking an active role in their onboarding and progression. This included regular 1:1 catchups and running workshops — for example, explaining how memory works at a basic level and practically what happens within C# in terms of memory allocation.

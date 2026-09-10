@@ -1,0 +1,5 @@
+During my time at Enable, a startup fintech company, there was a constant issue of waiting for CI builds for the main, legacy solution. Build times could regularly take over 1 hour and 20 minutes. I led an initiative to investigate and attempt to decrease these build times, and through a number of small wins (e.g. removing unnecessary CI build steps that hadn't been looked at in a long time) and a few larger wins the build times were reduced by 50% to 40 minutes, with many hours of engineers being saved having to wait for these builds to finish.
+
+The bigger wins included restructuring the complex testing to ensure integration tests were not being run when not necessary, as well as altering the build agents (virtual machines) which ran the CI pipeline - the bottleneck was not on the compute power of the build agents, but the number of agents, meaning more, lesser powered build agents was more efficient than fewer, higher powered build agents.
+
+The CI platform was Azure DevOps.

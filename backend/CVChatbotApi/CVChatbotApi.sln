@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CVChatbotApi", "CVChatbotApi\CVChatbotApi.csproj", "{F942C2EE-1EB3-4D5B-9D7D-B4052934F625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{D1F61C36-4690-4323-BCB0-20E70B060D3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChunkEmbeddingsConsoleApp", "ChunkEmbeddingsConsoleApp\ChunkEmbeddingsConsoleApp.csproj", "{D10C431E-0876-449F-9EDD-2F83F5F467C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F942C2EE-1EB3-4D5B-9D7D-B4052934F625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F942C2EE-1EB3-4D5B-9D7D-B4052934F625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F942C2EE-1EB3-4D5B-9D7D-B4052934F625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F942C2EE-1EB3-4D5B-9D7D-B4052934F625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1F61C36-4690-4323-BCB0-20E70B060D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F61C36-4690-4323-BCB0-20E70B060D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F61C36-4690-4323-BCB0-20E70B060D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F61C36-4690-4323-BCB0-20E70B060D3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D10C431E-0876-449F-9EDD-2F83F5F467C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10C431E-0876-449F-9EDD-2F83F5F467C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10C431E-0876-449F-9EDD-2F83F5F467C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10C431E-0876-449F-9EDD-2F83F5F467C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,7 @@
+4.5 years .NET/C# experience
+3 years AWS experience
+1.5 years Azure experience
+1.5 years fullstack Typescript/Angular experience (alongside C#)
+
+C#, TypeScript, .NET, AWS, GitHub Actions, TeamCity, Docker/Containers, Azure,
+Terraform, Bash, PowerShell, SQL, Azure DevOps, CI/CD
