@@ -6,8 +6,10 @@ namespace Shared.ExternalServices;
 
 public interface IGeminiHttpClient
 {
-    IEnumerable<Task<(string chunk, EmbedContentResponse response)>> GetEmbeddings(string[] chunks,
+    IEnumerable<Task<(string chunk, EmbedContentResponse response)>> GetChunkEmbeddings(string[] chunks,
         CancellationToken cancellationToken);
+    
+    Task<EmbedContentResponse> GetQueryEmbedding(string query, CancellationToken cancellationToken);
 }
 
 public class GeminiHttpClient : IGeminiHttpClient
@@ -19,7 +21,7 @@ public class GeminiHttpClient : IGeminiHttpClient
         _geminiOptions = geminiOptions.Value;
     }
 
-    public IEnumerable<Task<(string chunk, EmbedContentResponse response)>> GetEmbeddings(string[] chunks,
+    public IEnumerable<Task<(string chunk, EmbedContentResponse response)>> GetChunkEmbeddings(string[] chunks,
         CancellationToken cancellationToken)
     {
         var client = new Client(apiKey: _geminiOptions.ApiKey);
@@ -39,5 +41,22 @@ public class GeminiHttpClient : IGeminiHttpClient
         });
 
         return embeddingTasks;
+    }
+
+    public Task<EmbedContentResponse> GetQueryEmbedding(string query, CancellationToken cancellationToken)
+    {
+        var client = new Client(apiKey: _geminiOptions.ApiKey);
+
+        var response = client.Models.EmbedContentAsync(
+            model: "gemini-embedding-001", 
+            contents: query, 
+            config: new EmbedContentConfig 
+            { 
+                // Optimises for documents/chunks
+                TaskType = "RETRIEVAL_QUERY" 
+            }, 
+            cancellationToken: cancellationToken);
+        
+        return response;
     }
 }

@@ -1,5 +1,6 @@
 using CVChatbotApi.DataStore;
 using CVChatbotApi.Startup;
+using Shared.ExternalServices;
 
 namespace CVChatbotApi.Extensions;
 
@@ -10,5 +11,11 @@ public static class ServiceCollectionExtensions
         // In memory chunk embeddings store
         services.AddHostedService<StartupDataInitialiser>();
         services.AddSingleton<IDataStore, InMemoryDataStore>();
+        
+        // Gemini
+        services.AddTransient<IGeminiHttpClient, GeminiHttpClient>();
+        
+        // Options
+        services.Configure<GeminiOptions>(configuration.GetSection("Gemini"));
     }
 }

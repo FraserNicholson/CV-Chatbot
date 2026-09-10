@@ -1,5 +1,6 @@
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using Shared.ExternalServices;
 using Shared.Models;
 
 namespace ChunkEmbeddingsConsoleApp;

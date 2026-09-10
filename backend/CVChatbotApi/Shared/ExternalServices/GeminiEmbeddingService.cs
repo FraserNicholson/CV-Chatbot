@@ -1,12 +1,11 @@
-using Shared.ExternalServices;
-
-namespace ChunkEmbeddingsConsoleApp;
+namespace Shared.ExternalServices;
 
 public record ChunkWithEmbedding(string Chunk, double[] Embedding);
 
 public interface IGeminiEmbeddingService
 {
     Task<ChunkWithEmbedding[]> GetChunkEmbeddings(string[] chunks, CancellationToken cancellationToken);
+    Task<double[]> GetQueryEmbedding(string query, CancellationToken cancellationToken);
 }
 
 public class GeminiEmbeddingService(IGeminiHttpClient geminiHttpClient) : IGeminiEmbeddingService
@@ -15,12 +14,19 @@ public class GeminiEmbeddingService(IGeminiHttpClient geminiHttpClient) : IGemin
 
     public async Task<ChunkWithEmbedding[]> GetChunkEmbeddings(string[] chunks, CancellationToken cancellationToken)
     {
-        var embedTasks = _geminiHttpClient.GetEmbeddings(chunks, cancellationToken);
+        var embedTasks = _geminiHttpClient.GetChunkEmbeddings(chunks, cancellationToken);
         var embedResponses = await Task.WhenAll(embedTasks);
 
         var chunksWithEmbeddings = embedResponses
             .Select(tuple => new ChunkWithEmbedding(tuple.chunk, [.. tuple.response.Embeddings!.Single().Values!]));
 
         return [.. chunksWithEmbeddings];
+    }
+
+    public async Task<double[]> GetQueryEmbedding(string query, CancellationToken cancellationToken)
+    {
+        var response = await _geminiHttpClient.GetQueryEmbedding(query, cancellationToken);
+
+        return [.. response.Embeddings!.Single().Values!];
     }
 }
