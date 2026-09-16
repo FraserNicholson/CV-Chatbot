@@ -10,6 +10,8 @@ public interface IGeminiHttpClient
         CancellationToken cancellationToken);
     
     Task<EmbedContentResponse> GetQueryEmbedding(string query, CancellationToken cancellationToken);
+    
+    Task<GenerateContentResponse> GenerateContent(string contents, CancellationToken cancellationToken);
 }
 
 public class GeminiHttpClient : IGeminiHttpClient
@@ -57,6 +59,18 @@ public class GeminiHttpClient : IGeminiHttpClient
             }, 
             cancellationToken: cancellationToken);
         
+        return response;
+    }
+
+    public Task<GenerateContentResponse> GenerateContent(string contents, CancellationToken cancellationToken)
+    {
+        var client = new Client(apiKey: _geminiOptions.ApiKey);
+
+        var response = client.Models.GenerateContentAsync(
+            model: "gemini-flash-latest",
+            contents: contents,
+            cancellationToken: cancellationToken);
+
         return response;
     }
 }

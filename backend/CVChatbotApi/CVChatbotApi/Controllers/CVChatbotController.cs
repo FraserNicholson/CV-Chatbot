@@ -1,5 +1,5 @@
 using CVChatbotApi.Contract;
-using CVChatbotApi.Handlers;
+using CVChatbotApi.RequestHandlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CVChatbotApi.Controllers;
