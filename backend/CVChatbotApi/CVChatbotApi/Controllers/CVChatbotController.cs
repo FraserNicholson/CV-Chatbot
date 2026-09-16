@@ -1,18 +1,18 @@
-using CVChatbotApi.DataStore;
+using CVChatbotApi.Contract;
+using CVChatbotApi.Handlers;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Models;
 
 namespace CVChatbotApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CVChatbotController(IDataStore dataStore) : ControllerBase
+public class CVChatbotController(ICVQueryHandler handler) : ControllerBase
 {
-    private readonly IDataStore _dataStore = dataStore;
+    private readonly ICVQueryHandler _handler = handler;
 
     [HttpPost("ask-question")]
-    public ChunkEmbeddingJsonRecord[] AskQuestion()
+    public Task<CVQueryResponse> AskQuestion([FromBody] CVQueryRequest request, CancellationToken cancellationToken)
     {
-        return _dataStore.GetData();
+        return _handler.Handle(request, cancellationToken);
     }
 }
