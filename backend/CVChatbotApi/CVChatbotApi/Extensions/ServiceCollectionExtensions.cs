@@ -1,3 +1,4 @@
+using System.Threading.RateLimiting;
 using CVChatbotApi.DataStore;
 using CVChatbotApi.Mapping;
 using CVChatbotApi.RequestHandlers;
@@ -13,6 +14,21 @@ public static class ServiceCollectionExtensions
     {
         // Logging
         services.AddLogging();
+        
+        // Add rate limiting
+        services.AddRateLimiter(options =>
+        {
+            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+                RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: "global", // For now, one rate limit for all users is fine, gemini has 15 rpm limit anyway
+                    factory: partition => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = 10,
+                        QueueLimit = 0,
+                        Window = TimeSpan.FromMinutes(1)
+                    }));
+        });
         
         // In memory chunk embeddings store
         services.AddHostedService<StartupDataInitialiser>();
