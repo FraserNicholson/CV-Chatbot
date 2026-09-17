@@ -1,5 +1,5 @@
 using CVChatbotApi.Mapping;
-using Shared.ExternalServices;
+using Shared.Services;
 
 namespace CVChatbotApi.Services;
 

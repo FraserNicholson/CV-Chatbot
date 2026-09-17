@@ -2,7 +2,7 @@ using CVChatbotApi.Contract;
 using CVChatbotApi.DataStore;
 using CVChatbotApi.Mapping;
 using CVChatbotApi.Services;
-using Shared.ExternalServices;
+using Shared.Services;
 
 namespace CVChatbotApi.RequestHandlers;
 
@@ -12,17 +12,17 @@ public interface ICVQueryHandler
 }
 
 public class CVQueryHandler(
+    ILogger<CVQueryHandler> logger,
     IGeminiEmbeddingService embeddingService,
     IDataStore dataStore,
     ICosineSimilarityMapper cosineSimilarityMapper,
-    ICosineSimilarityService cosineSimilarityService,
-    ILogger<CVQueryHandler> logger) : ICVQueryHandler
+    ICosineSimilarityService cosineSimilarityService) : ICVQueryHandler
 {
+    private readonly ILogger<CVQueryHandler> _logger = logger;
     private readonly IGeminiEmbeddingService _embeddingService = embeddingService;
     private readonly IDataStore _dataStore = dataStore;
     private readonly ICosineSimilarityMapper _cosineSimilarityMapper = cosineSimilarityMapper;
     private readonly ICosineSimilarityService _cosineSimilarityService = cosineSimilarityService;
-    private readonly ILogger<CVQueryHandler> _logger = logger;
 
     public async Task<CVQueryResponse> Handle(CVQueryRequest request, CancellationToken cancellationToken)
     {
@@ -39,7 +39,7 @@ public class CVQueryHandler(
         
         // Get's relevant in memory embedded chunks based on query
         var cosineSimilarityInput =
-            _cosineSimilarityMapper.MapInput(request.Query, queryEmbedding, cvChunkEmbeddings, requestId);
+            _cosineSimilarityMapper.MapInput(queryEmbedding, cvChunkEmbeddings, requestId);
         var similarCVChunks = _cosineSimilarityService.GetSimilarCVChunks(cosineSimilarityInput);
 
         if (similarCVChunks.Length == 0)

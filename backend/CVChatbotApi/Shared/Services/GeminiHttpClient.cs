@@ -2,7 +2,7 @@ using Google.GenAI;
 using Google.GenAI.Types;
 using Microsoft.Extensions.Options;
 
-namespace Shared.ExternalServices;
+namespace Shared.Services;
 
 public interface IGeminiHttpClient
 {

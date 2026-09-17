@@ -1,4 +1,4 @@
-namespace Shared.ExternalServices;
+namespace Shared.Services;
 
 public class GeminiOptions
 {

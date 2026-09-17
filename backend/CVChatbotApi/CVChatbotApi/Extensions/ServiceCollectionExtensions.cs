@@ -3,7 +3,7 @@ using CVChatbotApi.Mapping;
 using CVChatbotApi.RequestHandlers;
 using CVChatbotApi.Services;
 using CVChatbotApi.Startup;
-using Shared.ExternalServices;
+using Shared.Services;
 
 namespace CVChatbotApi.Extensions;
 

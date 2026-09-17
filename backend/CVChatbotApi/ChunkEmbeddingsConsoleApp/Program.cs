@@ -1,7 +1,7 @@
 ﻿using ChunkEmbeddingsConsoleApp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Shared.ExternalServices;
+using Shared.Services;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())

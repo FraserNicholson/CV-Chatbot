@@ -5,17 +5,16 @@ namespace CVChatbotApi.Mapping;
 
 public interface ICosineSimilarityMapper
 {
-    CosineSimilarityInput MapInput(string query, double[] queryEmbedding, ChunkEmbeddingJsonRecord[] chunkEmbeddings, Guid requestId);
+    CosineSimilarityInput MapInput( double[] queryEmbedding, ChunkEmbeddingJsonRecord[] chunkEmbeddings, Guid requestId);
 }
 
 public class CosineSimilarityMapper : ICosineSimilarityMapper
 {
-    public CosineSimilarityInput MapInput(string query, double[] queryEmbedding,
-        ChunkEmbeddingJsonRecord[] chunkEmbeddings, Guid requestId)
+    public CosineSimilarityInput MapInput(double[] queryEmbedding, ChunkEmbeddingJsonRecord[] chunkEmbeddings, Guid requestId)
     {
         var mappedChunkEmbeddings = chunkEmbeddings.Select(MapChunkEmbedding);
         
-        return new CosineSimilarityInput(query, queryEmbedding, [.. mappedChunkEmbeddings], requestId);
+        return new CosineSimilarityInput(queryEmbedding, [.. mappedChunkEmbeddings], requestId);
     }
 
     private static ChunkEmbedding MapChunkEmbedding(ChunkEmbeddingJsonRecord chunkEmbeddingJsonRecord)

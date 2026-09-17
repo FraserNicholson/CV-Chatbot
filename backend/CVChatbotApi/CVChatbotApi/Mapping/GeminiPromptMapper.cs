@@ -26,10 +26,10 @@ public class GeminiPromptMapper : IGeminiPromptMapper
                  directly from the context — accuracy matters more than being impressive.
 
                Context:
-               {query}
+               {FormatCvChunks(cvChunks)}
 
                Question:
-               {FormatCvChunks(cvChunks)}
+               {query}
                """;
     }
 

@@ -2,9 +2,9 @@ using AutoFixture;
 using FluentAssertions;
 using Google.GenAI.Types;
 using NSubstitute;
-using Shared.ExternalServices;
+using Shared.Services;
 
-namespace UnitTests.ExternalServices;
+namespace UnitTests.Services;
 
 public class GeminiEmbeddingServiceTests
 {

@@ -1,4 +1,4 @@
-namespace Shared.ExternalServices;
+namespace Shared.Services;
 
 public record ChunkWithEmbedding(string Chunk, double[] Embedding);
 
