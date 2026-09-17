@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataStore, InMemoryDataStore>();
         
         // Request Handlers
-        services.AddTransient<ICVQueryHandler, CVQueryHandler>();
+        services.AddTransient<ICVQueryHandler, CvQueryHandler>();
         
         // Services
         services.AddTransient<ICosineSimilarityService, CosineSimilarityService>();
