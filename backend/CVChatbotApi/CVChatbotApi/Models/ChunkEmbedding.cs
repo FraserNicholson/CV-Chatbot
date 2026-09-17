@@ -1,3 +1,3 @@
 namespace CVChatbotApi.Models;
 
-public record ChunkEmbedding(string CVChunk, double[] Embedding);
+public record ChunkEmbedding(string Id, string CVChunk, double[] Embedding);

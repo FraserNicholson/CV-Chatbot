@@ -12,10 +12,12 @@ public interface ICosineSimilarityService
 /// Calculates cosine similarity between query and each cv chunk, then returns
 /// top N cv chunks that satisfy the minimum similarity cuttoff
 /// </summary>
-public class CosineSimilarityService : ICosineSimilarityService
+public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : ICosineSimilarityService
 {
     private const int NumberOfChunksToTake = 3;
-    private const double MinSimilarityCutoff = 0.5;
+    private const double MinSimilarityCutoff = 0.65;
+    
+    private readonly ILogger<CosineSimilarityService> _logger = logger;
 
     private record ChunkWithCosineSimilarity(string CVChunk, double CosineSimilarity);
     
@@ -23,18 +25,23 @@ public class CosineSimilarityService : ICosineSimilarityService
     {
         var chunksWithCosineSimilarity = CollectChunksWithCosineSimilarities(input);
         var mostSimilarChunks = chunksWithCosineSimilarity
-            .OrderByDescending(x => x.CosineSimilarity)
+            .OrderByDescending(x => x.CosineSimilarity);
+
+        var mostSimilarChunkTexts = mostSimilarChunks
             .Take(NumberOfChunksToTake)
             .Select(x => x.CVChunk);
-
-        return [.. mostSimilarChunks];
+        
+        return [.. mostSimilarChunkTexts];
     }
 
-    private static IEnumerable<ChunkWithCosineSimilarity> CollectChunksWithCosineSimilarities(CosineSimilarityInput input)
+    private IEnumerable<ChunkWithCosineSimilarity> CollectChunksWithCosineSimilarities(CosineSimilarityInput input)
     {
         foreach (var chunk in input.ChunkEmbeddings)
         {
             var cosineSimilarity = CalculateCosineSimilarity(input.QueryEmbedding, chunk.Embedding);
+
+            _logger.LogInformation("Cosine similarity for chunk {chunkId}: {cosineSimilarity}. Request {requestId}",
+                chunk.Id, cosineSimilarity, input.requestId);
             
             if (cosineSimilarity < MinSimilarityCutoff) continue;
             

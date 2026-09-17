@@ -1,6 +1,32 @@
 @HostAddress = http://localhost:5176
 
+### @name=UnrelatedQuestion
+
 POST {{HostAddress}}/cvchatbot/ask-question
+Content-Type: application/json
+
+{
+  "query": "Unrelated question about pie"
+}
+
+### @name=TechnicalQuestion
+
+POST {{HostAddress}}/cvchatbot/ask-question
+Content-Type: application/json
+
+{
+  "query": "Tell me about Fraser's technical skills"
+}
+
+### @name=SoftSkillsQuestion
+
+POST {{HostAddress}}/cvchatbot/ask-question
+Content-Type: application/json
+
+{
+  "query": "Tell me about Fraser's soft skills"
+}
 
 ###
+
 
