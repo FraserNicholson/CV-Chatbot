@@ -67,7 +67,7 @@ public class GeminiHttpClient : IGeminiHttpClient
         var client = new Client(apiKey: _geminiOptions.ApiKey);
 
         var response = client.Models.GenerateContentAsync(
-            model: "gemini-flash-latest",
+            model: "gemini-3.5-flash-lite",
             contents: contents,
             cancellationToken: cancellationToken);
 

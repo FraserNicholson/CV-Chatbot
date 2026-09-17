@@ -11,7 +11,8 @@ public class GeminiPromptMapper : IGeminiPromptMapper
     {
         return $"""
                You are an assistant that answers questions about Fraser Nicholson's professional
-               experience, based only on the context provided below.
+               experience, based only on the context provided below. Please respond in the 3rd person
+               with relation to Fraser.
 
                Rules:
                - Only answer using information in the provided context. Do not use outside
