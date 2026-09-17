@@ -1,6 +1,6 @@
 namespace CVChatbotApi.Contract;
 
-public class CVQueryResponse
+public class CvQueryResponse
 {
     public required string Response { get; set; }
 }

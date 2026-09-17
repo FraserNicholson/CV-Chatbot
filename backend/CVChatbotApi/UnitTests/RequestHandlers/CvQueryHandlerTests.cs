@@ -39,10 +39,10 @@ public class CvQueryHandlerTests
     [Fact]
     public async Task Handle_GivenNoSimilarCvChunksFound_ReturnsRelevantResponse()
     {
-        _cosineSimilarityService.GetSimilarCVChunks(Arg.Any<CosineSimilarityInput>())
+        _cosineSimilarityService.GetSimilarCvChunks(Arg.Any<CosineSimilarityInput>())
             .Returns([]);
 
-        var request = new CVQueryRequest { Query = "my query" };
+        var request = new CvQueryRequest { Query = "my query" };
         
         var response = await _sut.Handle(request, CancellationToken.None);
 
@@ -51,7 +51,7 @@ public class CvQueryHandlerTests
         await _embeddingService.Received(1).GetQueryEmbedding("my query", Arg.Any<CancellationToken>());
         _dataStore.Received(1).GetData();
         _cosineSimilarityMapper.Received(1).MapInput(Arg.Any<double[]>(), Arg.Any<ChunkEmbeddingJsonRecord[]>(), Arg.Any<Guid>());
-        _cosineSimilarityService.Received(1).GetSimilarCVChunks(Arg.Any<CosineSimilarityInput>());
+        _cosineSimilarityService.Received(1).GetSimilarCvChunks(Arg.Any<CosineSimilarityInput>());
 
         await _promptService.DidNotReceive().GetGeneratedContent(Arg.Any<string>(), Arg.Any<string[]>(), Arg.Any<CancellationToken>());
     }
@@ -59,7 +59,7 @@ public class CvQueryHandlerTests
     [Fact]
     public async Task Handle_GivenSimilarCvChunksFound_ReturnsRelevantResponse()
     {
-        var request = new CVQueryRequest { Query = "my query" };
+        var request = new CvQueryRequest { Query = "my query" };
         double[] queryEmbedding = [1, 1, 1];
         var chunkEmbeddingRecords = _fixture.Create<ChunkEmbeddingJsonRecord[]>();
         var cosineSimilarityInput = _fixture.Create<CosineSimilarityInput>();
@@ -72,7 +72,7 @@ public class CvQueryHandlerTests
         
         _cosineSimilarityMapper.MapInput(Arg.Any<double[]>(), Arg.Any<ChunkEmbeddingJsonRecord[]>(), Arg.Any<Guid>())
             .Returns(cosineSimilarityInput);
-        _cosineSimilarityService.GetSimilarCVChunks(Arg.Any<CosineSimilarityInput>())
+        _cosineSimilarityService.GetSimilarCvChunks(Arg.Any<CosineSimilarityInput>())
             .Returns(similarCvChunks);
 
         _promptService.GetGeneratedContent(Arg.Any<string>(), Arg.Any<string[]>(), Arg.Any<CancellationToken>())
@@ -85,7 +85,7 @@ public class CvQueryHandlerTests
         await _embeddingService.Received(1).GetQueryEmbedding("my query", Arg.Any<CancellationToken>());
         _dataStore.Received(1).GetData();
         _cosineSimilarityMapper.Received(1).MapInput(queryEmbedding, chunkEmbeddingRecords, Arg.Any<Guid>());
-        _cosineSimilarityService.Received(1).GetSimilarCVChunks(cosineSimilarityInput);
+        _cosineSimilarityService.Received(1).GetSimilarCvChunks(cosineSimilarityInput);
         await _promptService.Received(1).GetGeneratedContent("my query", similarCvChunks, Arg.Any<CancellationToken>());
     }
 }

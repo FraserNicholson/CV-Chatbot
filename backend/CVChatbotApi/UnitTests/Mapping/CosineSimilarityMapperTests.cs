@@ -27,15 +27,15 @@ public class CosineSimilarityMapperTests
         candidate.ChunkEmbeddings.Should().HaveCount(3);
         
         candidate.ChunkEmbeddings.First().Id.Should().Be("1");
-        candidate.ChunkEmbeddings.First().CVChunk.Should().Be("chunk text 1");
+        candidate.ChunkEmbeddings.First().CvChunk.Should().Be("chunk text 1");
         candidate.ChunkEmbeddings.First().Embedding.Should().Equal(1, 1, 1, 1);
         
         candidate.ChunkEmbeddings.Skip(1).First().Id.Should().Be("2");
-        candidate.ChunkEmbeddings.Skip(1).First().CVChunk.Should().Be("chunk text 2");
+        candidate.ChunkEmbeddings.Skip(1).First().CvChunk.Should().Be("chunk text 2");
         candidate.ChunkEmbeddings.Skip(1).First().Embedding.Should().Equal(0, 1, -0.1, 9);
         
         candidate.ChunkEmbeddings.Last().Id.Should().Be("3");
-        candidate.ChunkEmbeddings.Last().CVChunk.Should().Be("chunk text 3");
+        candidate.ChunkEmbeddings.Last().CvChunk.Should().Be("chunk text 3");
         candidate.ChunkEmbeddings.Last().Embedding.Should().Equal(0.1, -5, -1, 1);
     }
 }

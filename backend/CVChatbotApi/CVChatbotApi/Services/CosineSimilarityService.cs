@@ -4,7 +4,7 @@ namespace CVChatbotApi.Services;
 
 public interface ICosineSimilarityService
 {
-    string[] GetSimilarCVChunks(CosineSimilarityInput input);
+    string[] GetSimilarCvChunks(CosineSimilarityInput input);
 }
 
 /// <summary>
@@ -19,9 +19,9 @@ public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : 
     
     private readonly ILogger<CosineSimilarityService> _logger = logger;
 
-    private record ChunkWithCosineSimilarity(string CVChunk, double CosineSimilarity);
+    private record ChunkWithCosineSimilarity(string CvChunk, double CosineSimilarity);
     
-    public string[] GetSimilarCVChunks(CosineSimilarityInput input)
+    public string[] GetSimilarCvChunks(CosineSimilarityInput input)
     {
         var chunksWithCosineSimilarity = CollectChunksWithCosineSimilarities(input);
         var mostSimilarChunks = chunksWithCosineSimilarity
@@ -29,7 +29,7 @@ public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : 
 
         var mostSimilarChunkTexts = mostSimilarChunks
             .Take(NumberOfChunksToTake)
-            .Select(x => x.CVChunk);
+            .Select(x => x.CvChunk);
         
         return [.. mostSimilarChunkTexts];
     }
@@ -45,7 +45,7 @@ public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : 
             
             if (cosineSimilarity < MinSimilarityCutoff) continue;
             
-            yield return new ChunkWithCosineSimilarity(chunk.CVChunk, cosineSimilarity);
+            yield return new ChunkWithCosineSimilarity(chunk.CvChunk, cosineSimilarity);
         }
     }
     

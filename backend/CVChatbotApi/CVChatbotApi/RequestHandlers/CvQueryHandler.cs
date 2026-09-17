@@ -6,9 +6,9 @@ using Shared.Services;
 
 namespace CVChatbotApi.RequestHandlers;
 
-public interface ICVQueryHandler
+public interface ICvQueryHandler
 {
-    Task<CVQueryResponse> Handle(CVQueryRequest request, CancellationToken cancellationToken);
+    Task<CvQueryResponse> Handle(CvQueryRequest request, CancellationToken cancellationToken);
 }
 
 public class CvQueryHandler(
@@ -17,7 +17,7 @@ public class CvQueryHandler(
     IDataStore dataStore,
     ICosineSimilarityMapper cosineSimilarityMapper,
     ICosineSimilarityService cosineSimilarityService,
-    IGeminiPromptService promptService) : ICVQueryHandler
+    IGeminiPromptService promptService) : ICvQueryHandler
 {
     private readonly ILogger<CvQueryHandler> _logger = logger;
     private readonly IGeminiEmbeddingService _embeddingService = embeddingService;
@@ -26,7 +26,7 @@ public class CvQueryHandler(
     private readonly ICosineSimilarityService _cosineSimilarityService = cosineSimilarityService;
     private readonly IGeminiPromptService _promptService = promptService;
 
-    public async Task<CVQueryResponse> Handle(CVQueryRequest request, CancellationToken cancellationToken)
+    public async Task<CvQueryResponse> Handle(CvQueryRequest request, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(request.Query)) throw new InvalidOperationException("No query provided");
 
@@ -40,18 +40,18 @@ public class CvQueryHandler(
         
         var cosineSimilarityInput =
             _cosineSimilarityMapper.MapInput(queryEmbedding, cvChunkEmbeddings, requestId);
-        var similarCvChunks = _cosineSimilarityService.GetSimilarCVChunks(cosineSimilarityInput);
+        var similarCvChunks = _cosineSimilarityService.GetSimilarCvChunks(cosineSimilarityInput);
 
         if (similarCvChunks.Length == 0)
         {
             _logger.LogWarning("No similar CV chunks found for request {requestId}", requestId);
-            return new CVQueryResponse { Response = "Unable to find any relevant information for your query" };
+            return new CvQueryResponse { Response = "Unable to find any relevant information for your query" };
         }
 
         var geminiPromptResponse =
             await _promptService.GetGeneratedContent(request.Query, similarCvChunks, cancellationToken);
         
-        return new CVQueryResponse
+        return new CvQueryResponse
         {
             Response = geminiPromptResponse
         };

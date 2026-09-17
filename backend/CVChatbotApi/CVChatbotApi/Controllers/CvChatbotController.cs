@@ -6,12 +6,12 @@ namespace CVChatbotApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CVChatbotController(ICVQueryHandler handler) : ControllerBase
+public class CvChatbotController(ICvQueryHandler handler) : ControllerBase
 {
-    private readonly ICVQueryHandler _handler = handler;
+    private readonly ICvQueryHandler _handler = handler;
 
     [HttpPost("ask-question")]
-    public Task<CVQueryResponse> AskQuestion([FromBody] CVQueryRequest request, CancellationToken cancellationToken)
+    public Task<CvQueryResponse> AskQuestion([FromBody] CvQueryRequest request, CancellationToken cancellationToken)
     {
         return _handler.Handle(request, cancellationToken);
     }

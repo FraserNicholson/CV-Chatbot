@@ -11,7 +11,7 @@ public class CosineSimilarityServiceTests
     private readonly CosineSimilarityService _sut = new(Substitute.For<ILogger<CosineSimilarityService>>());
 
     [Fact]
-    public void GetSimilarCVChunks_GivenMixedInputs_ShouldOnlyReturnRelevantChunks()
+    public void GetSimilarCvChunks_GivenMixedInputs_ShouldOnlyReturnRelevantChunks()
     {
         double[] queryEmbedding = [1, 1];
         ChunkEmbedding[] chunkEmbeddings =
@@ -24,7 +24,7 @@ public class CosineSimilarityServiceTests
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
-        var result = _sut.GetSimilarCVChunks(input);
+        var result = _sut.GetSimilarCvChunks(input);
 
         result.Should().HaveCount(2);
         result.Should().Contain("Exact match chunk");
@@ -33,7 +33,7 @@ public class CosineSimilarityServiceTests
     
     // Should fail when N is changed in CosineSimilarityService
     [Fact]
-    public void GetSimilarCVChunks_GivenRelatedInputs_ShouldOnlyReturnNRelevantChunks()
+    public void GetSimilarCvChunks_GivenRelatedInputs_ShouldOnlyReturnNRelevantChunks()
     {
         double[] queryEmbedding = [1, 1];
         ChunkEmbedding[] chunkEmbeddings =
@@ -46,7 +46,7 @@ public class CosineSimilarityServiceTests
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
-        var result = _sut.GetSimilarCVChunks(input);
+        var result = _sut.GetSimilarCvChunks(input);
 
         result.Should().HaveCount(3);
         result.Should().Contain("Exact match chunk");
@@ -55,7 +55,7 @@ public class CosineSimilarityServiceTests
     }
     
     [Fact]
-    public void GetSimilarCVChunks_GivenUnrelatedInputs_ShouldNotReturnAnyChunks()
+    public void GetSimilarCvChunks_GivenUnrelatedInputs_ShouldNotReturnAnyChunks()
     {
         double[] queryEmbedding = [1, 1];
         ChunkEmbedding[] chunkEmbeddings =
@@ -67,7 +67,7 @@ public class CosineSimilarityServiceTests
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
-        var result = _sut.GetSimilarCVChunks(input);
+        var result = _sut.GetSimilarCvChunks(input);
 
         result.Should().BeEmpty();
     }
