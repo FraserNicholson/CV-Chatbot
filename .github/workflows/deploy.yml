@@ -35,8 +35,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: ./backend/CVChatbotApi
-          file: CVChatbotApi/Dockerfile
+          context: backend/CVChatbotApi
+          file: backend/CVChatbotApi/CVChatbotApi/Dockerfile
           push: true
           tags: |
             frasernicholson/cv-chatbot-api:${{ github.event.release.tag_name }}
