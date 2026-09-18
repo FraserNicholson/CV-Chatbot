@@ -53,3 +53,5 @@ package.json
 .terraform/
 *.tfvars
 crash.log
+
+.env
