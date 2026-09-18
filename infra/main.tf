@@ -25,12 +25,23 @@ resource "azurerm_container_app" "backend" {
   container_app_environment_id = azurerm_container_app_environment.main.id
   revision_mode                = "Single"
 
+
+  secret {
+    name  = "gemini-api-key"
+    value = var.gemini_api_key
+  }
+
   template {
     container {
       name   = "backend"
       image  = "frasernicholson/cv-chatbot-api:latest"
       cpu    = 0.25
       memory = "0.5Gi"
+
+      env {
+        name        = "Gemini__ApiKey"
+        secret_name = "gemini-api-key"
+      }
     }
   }
 
