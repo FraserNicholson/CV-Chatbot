@@ -12,6 +12,7 @@
         <PackageReference Include="Google.GenAI" Version="1.21.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.11"/>
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
+        <PackageReference Include="Scalar.AspNetCore" Version="2.17.4" />
     </ItemGroup>
 
     <ItemGroup>

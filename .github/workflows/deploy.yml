@@ -38,6 +38,8 @@ jobs:
           context: backend/CVChatbotApi
           file: backend/CVChatbotApi/CVChatbotApi/Dockerfile
           push: true
+          build-args: |
+            APP_VERSION=${{ github.event.release.tag_name }}
           tags: |
             frasernicholson/cv-chatbot-api:${{ github.event.release.tag_name }}
             frasernicholson/cv-chatbot-api:latest

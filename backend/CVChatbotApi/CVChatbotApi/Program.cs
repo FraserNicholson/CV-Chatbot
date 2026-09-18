@@ -1,4 +1,5 @@
 using CVChatbotApi.Extensions;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
+
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "healthy",
+    version = Environment.GetEnvironmentVariable("APP_VERSION") ?? "unknown"
+}));
 
 app.UseHttpsRedirection();
 
