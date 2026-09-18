@@ -2,6 +2,10 @@
 
 A CV Chatbot to answer questions on Fraser Nicholson's CV.
 
+The Deployed API URL is:
+
+https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io
+
 ## Updating CV information
 
 Details on updating CV information can be found in the [Chunk Embeddings Console App README](./backend/CVChatbotApi/ChunkEmbeddingsConsoleApp/README.md)
