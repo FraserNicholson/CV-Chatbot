@@ -1,4 +1,4 @@
-@HostAddress = http://localhost:5176
+@HostAddress = https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io
 
 ### @name=Unrelated question
 
