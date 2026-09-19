@@ -42,6 +42,11 @@ resource "azurerm_container_app" "backend" {
         name        = "Gemini__ApiKey"
         secret_name = "gemini-api-key"
       }
+
+      env {
+        name  = "Frontend__Origin"
+        value = "https://${azurerm_static_web_app.frontend.default_host_name}"
+      }
     }
   }
 
@@ -53,4 +58,12 @@ resource "azurerm_container_app" "backend" {
       latest_revision = true
     }
   }
+}
+
+resource "azurerm_static_web_app" "frontend" {
+  name                = "cv-chatbot-frontend"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = "eastus2" # site is served globally regardless of this
+  sku_tier            = "Free"
+  sku_size            = "Free"
 }

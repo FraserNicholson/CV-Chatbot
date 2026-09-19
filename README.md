@@ -18,7 +18,11 @@ Terraform state is stored in a manually provisioned storage container, and conta
 
 For any infrastructure changes, due to their being no CI checks on them, please run `terraform plan` BEFORE merging changes.
 
-Once the changes are in main, then run `terraform apply`
+Once the changes are in main, then run `terraform apply`. You will also need to provide the Gemini API key when running either of these terraform commands, which can be done by setting the TF_VAR_gemini_api_key env variable. e.g. in powershell:
+
+```sh
+$env:TF_VAR_gemini_api_key = 'api-key'
+```
 
 ## Manually building docker image
 
