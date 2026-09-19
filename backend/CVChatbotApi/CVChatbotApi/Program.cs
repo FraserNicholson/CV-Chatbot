@@ -9,6 +9,19 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+var allowedOrigin = builder.Configuration["Frontend:Origin"]
+                    ?? "http://localhost:5173"; // dev fallback
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", policy =>
+    {
+        policy.WithOrigins(allowedOrigin)
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
@@ -29,6 +42,8 @@ app.MapGet("/health", () => Results.Ok(new
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("Frontend");
 
 app.MapControllers();
 
