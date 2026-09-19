@@ -1,0 +1,15 @@
+:root {
+  --color-bg: #F7F6F3;      /* soft, neutral off-white — not warm cream */
+  --color-surface: #FFFFFF;  /* message bubbles, cards */
+  --color-ink: #1C1C1A;      /* primary text — soft black, not pure #000 */
+  --color-ink-muted: #6B6A66; /* secondary text, timestamps */
+  --color-border: #E4E2DD;
+  --color-accent: #2F5D50;   /* deliberate pick below, not the common terracotta */
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: system-ui, -apple-system, sans-serif;
+}
