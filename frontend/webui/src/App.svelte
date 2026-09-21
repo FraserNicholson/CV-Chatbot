@@ -1,8 +1,15 @@
-<script>
+<script lang="ts">
     import Message from "./lib/Message.svelte";
     import ChatInput from "./lib/ChatInput.svelte";
 
-    let messages = $state([]);
+    type Message = {
+        id: string;
+        text: string;
+        role: "user" | "assistant";
+        loading?: boolean;
+    };
+
+    let messages = $state<Message[]>([]);
     let question = $state("");
     let isLoading = $state(false);
 

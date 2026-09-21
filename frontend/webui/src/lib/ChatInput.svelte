@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
     let { value = $bindable(""), onSubmit } = $props();
-    let textareaEl;
+    let textareaEl: HTMLTextAreaElement | undefined;
 
-    function handleKeydown(e) {
+    function handleKeydown(e: KeyboardEvent) {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             onSubmit();
