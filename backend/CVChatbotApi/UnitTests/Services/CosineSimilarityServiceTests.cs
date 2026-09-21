@@ -11,24 +11,26 @@ public class CosineSimilarityServiceTests
     private readonly CosineSimilarityService _sut = new(Substitute.For<ILogger<CosineSimilarityService>>());
 
     [Fact]
-    public void GetSimilarCvChunks_GivenMixedInputs_ShouldOnlyReturnRelevantChunks()
+    public void GetSimilarCvChunks_GivenMixedInputs_ShouldReturnRelevantChunksAndIndexChunk()
     {
         double[] queryEmbedding = [1, 1];
         ChunkEmbedding[] chunkEmbeddings =
         [
             new("1", "Exact match chunk", [1, 1]),
             new("2", "Similar match chunk", [0.9, 0.1]),
-            new("3", "Slightly unrelated chunk", [0.9, -0.1]),
-            new("4", "Completely unrelated chunk", [0.9, -0.1]),
+            new("3", "Slightly unrelated chunk", [0.9, -0.3]),
+            new("4", "Completely unrelated chunk", [-0.9, -0.1]),
+            new("corpus-index", "index chunk", [])
         ];
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
         var result = _sut.GetSimilarCvChunks(input);
 
-        result.Should().HaveCount(2);
+        result.Should().HaveCount(3);
         result.Should().Contain("Exact match chunk");
         result.Should().Contain("Similar match chunk");
+        result.Should().Contain("index chunk");
     }
     
     // Should fail when N is changed in CosineSimilarityService
@@ -42,16 +44,18 @@ public class CosineSimilarityServiceTests
             new("2", "Similar match chunk", [0.9, 0.1]),
             new("3", "Another similar match chunk", [0.9, 0.05]),
             new("4", "Another similar chunk, but removed because more N similar chunks chosen", [0.9, 0]),
+            new("corpus-index", "index chunk", [])
         ];
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
         var result = _sut.GetSimilarCvChunks(input);
 
-        result.Should().HaveCount(3);
+        result.Should().HaveCount(4);
         result.Should().Contain("Exact match chunk");
         result.Should().Contain("Similar match chunk");
         result.Should().Contain("Another similar match chunk");
+        result.Should().Contain("index chunk");
     }
     
     [Fact]
@@ -63,12 +67,14 @@ public class CosineSimilarityServiceTests
             new("1", "Slightly not related", [1, -0.5]),
             new("2", "Completely irrelevant", [1, -1]),
             new("3", "Completely opposite", [-1, -1]),
+            new("corpus-index", "index chunk", [])
         ];
         
         var input = new CosineSimilarityInput(queryEmbedding, chunkEmbeddings, Guid.NewGuid());
         
         var result = _sut.GetSimilarCvChunks(input);
 
-        result.Should().BeEmpty();
+        result.Should().HaveCount(1);
+        result.Should().Contain("index chunk");
     }
 }
