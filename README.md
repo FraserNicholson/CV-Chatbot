@@ -6,6 +6,10 @@ The Deployed API URL is:
 
 https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io
 
+The Web UI URL is:
+
+https://salmon-flower-0c0a18f0f.4.azurestaticapps.net
+
 ## Updating CV information
 
 Details on updating CV information can be found in the [Chunk Embeddings Console App README](./backend/CVChatbotApi/ChunkEmbeddingsConsoleApp/README.md)

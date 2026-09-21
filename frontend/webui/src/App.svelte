@@ -1,8 +1,15 @@
-<script>
+<script lang="ts">
     import Message from "./lib/Message.svelte";
     import ChatInput from "./lib/ChatInput.svelte";
 
-    let messages = $state([]);
+    type Message = {
+        id: string;
+        text: string;
+        role: "user" | "assistant";
+        loading?: boolean;
+    };
+
+    let messages = $state<Message[]>([]);
     let question = $state("");
     let isLoading = $state(false);
 
@@ -20,7 +27,7 @@
 
         try {
             const res = await fetch(
-                "https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io/cvchatbot/ask-question",
+                `${import.meta.env.VITE_API_URL}/cvchatbot/ask-question`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
