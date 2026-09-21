@@ -10,12 +10,14 @@ public interface ICosineSimilarityService
 /// <summary>
 /// Receives query, query embedding, as well as cv chunks and their embeddings.
 /// Calculates cosine similarity between query and each cv chunk, then returns
-/// top N cv chunks that satisfy the minimum similarity cuttoff
+/// top N cv chunks that satisfy the minimum similarity cuttoff, as well as
+/// an always present index chunk.
 /// </summary>
 public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : ICosineSimilarityService
 {
     private const int NumberOfChunksToTake = 3;
-    private const double MinSimilarityCutoff = 0.65;
+    private const double MinSimilarityCutoff = 0.5;
+    private const string ChunkIdToAlwaysReturn = "corpus-index";
     
     private readonly ILogger<CosineSimilarityService> _logger = logger;
 
@@ -30,14 +32,21 @@ public class CosineSimilarityService(ILogger<CosineSimilarityService> logger) : 
         var mostSimilarChunkTexts = mostSimilarChunks
             .Take(NumberOfChunksToTake)
             .Select(x => x.CvChunk);
+
+        var chunkToAlwaysReturn = input.ChunkEmbeddings.SingleOrDefault(c => c.Id == ChunkIdToAlwaysReturn) ??
+                                  throw new InvalidOperationException($"Chunk with Id {ChunkIdToAlwaysReturn} not found");
+        var chunksToReturn = mostSimilarChunkTexts.Append(chunkToAlwaysReturn.CvChunk);
         
-        return [.. mostSimilarChunkTexts];
+        return [.. chunksToReturn];
     }
 
     private IEnumerable<ChunkWithCosineSimilarity> CollectChunksWithCosineSimilarities(CosineSimilarityInput input)
     {
         foreach (var chunk in input.ChunkEmbeddings)
         {
+            // We always include this chunk, but add it on at the end
+            if (chunk.Id == ChunkIdToAlwaysReturn) continue;
+            
             var cosineSimilarity = CalculateCosineSimilarity(input.QueryEmbedding, chunk.Embedding);
 
             _logger.LogInformation("Cosine similarity for chunk {chunkId}: {cosineSimilarity}. Request {requestId}",

@@ -1,5 +1,12 @@
 [
     {
+        "Id": "corpus-index",
+        "Source": "Topics Overview",
+        "Category": "meta",
+        "Text": "I can answer questions about Fraser's professional background, covering several areas: technical project work, including a historical fare retrieval solution built for a Pay As You Go trial at Trainline, and an initiative extending trip-determination technology into new contexts; engineering practices, including reducing CI build times by 50% at Enable, a fintech startup; leadership and mentorship, including mentoring junior engineers through onboarding and probation; team culture and contributing to team morale; skills and experience across .NET, C#, AWS, Azure, and other technologies; and personal background, including interests outside of work and a recent career break. Ask about any of these areas for more detail, or ask something more specific, such as 'tell me about the fares project' or 'what's your Azure experience?'",
+        "Embedding": []
+    },
+    {
         "Id": "career-break",
         "Source": "Career Break",
         "Category": "personal",
