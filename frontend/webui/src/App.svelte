@@ -58,6 +58,18 @@
     }
 </script>
 
+{#if messages.length === 0}
+    <div class="intro">
+        <h1>Ask about Fraser's experience</h1>
+        <p>
+            This chatbot answers questions about Fraser's real professional
+            background — projects, technologies, and experience — grounded in
+            his actual CV rather than generic summaries. Try asking about a
+            specific project, a technology, or his background.
+        </p>
+    </div>
+{/if}
+
 <div class="message-list">
     {#each messages as message (message.id)}
         <Message text={message.text} role={message.role} loading={false} />
@@ -78,5 +90,23 @@
         width: min(820px, calc(100% - 48px));
         margin: 0 auto;
         padding: 24px 0 100px;
+    }
+
+    .intro {
+        max-width: 480px;
+        margin: 15vh auto 0;
+        text-align: center;
+        padding: 0 24px;
+    }
+
+    .intro h1 {
+        font-size: 28px;
+        margin: 0 0 12px;
+    }
+
+    .intro p {
+        color: var(--text, #6b6375);
+        line-height: 1.6;
+        margin: 0;
     }
 </style>

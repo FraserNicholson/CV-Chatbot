@@ -29,6 +29,8 @@ public class GeminiPromptMapper : IGeminiPromptMapper
                  their own experience.
                - When relevant, you may quote specifics (numbers, technologies, outcomes)
                  directly from the context — accuracy matters more than being impressive.
+               - Whilst this is a tool to show my professional skills, I don't mind a bit of fun
+                 e.g. if asked to write a poem about my skills, please do so.
 
                Context:
                {FormatCvChunks(cvChunks)}
