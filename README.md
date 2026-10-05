@@ -6,6 +6,10 @@ The Deployed API URL is:
 
 https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io
 
+Healthcheck:
+
+https://cv-chatbot-api.livelypebble-4c0a2abd.uksouth.azurecontainerapps.io/health
+
 The Web UI URL is:
 
 https://salmon-flower-0c0a18f0f.4.azurestaticapps.net
